@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+      args:
+        NODE_ENV: $NODE_ENV
+        FRONTEND_URL: $FRONTEND_URL
+    ports:
+      - 5000:5000
+    networks:
+      - local
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+      args:
+        NODE_ENV: $NODE_ENV
+        NEXT_PUBLIC_API_URL: $NEXT_PUBLIC_API_URL
+    ports:
+      - 3000:3000
+    networks:
+      - local
+
+networks:
+  local:
